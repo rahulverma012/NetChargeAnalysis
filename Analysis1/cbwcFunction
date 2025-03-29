@@ -1,1 +1,35 @@
-
+template<typename T, typename V, typename U>
+void Get_CBWC_C(T &C_NM_nClass, V &N, U &C_NM_CBWC_nClass, int nClass, int nOrder, double* xpLogicalLowEdge, double* xpLogicalUpEdge){
+  cout<<"getting cbwc cumulants via normal moments"<<endl;
+  for(int iClass = 0; iClass < nClass; iClass++){
+    cout<<"BUG 1 ::"<<endl;
+    for(int iOrder = 0; iOrder <= nOrder ; iOrder++){
+      cout<<"Bug 2 ::"<<endl;
+      double SumOfNr = 0;
+      C_NM_CBWC_nClass[iClass][iOrder] = 0;
+      cout<<"Value = "<<xpLogicalLowEdge[iClass]<<" :: "<<xpLogicalUpEdge[iClass]<<endl;
+      for(int r = 0; r < nSmallBin; r++){
+        if( xpLogicalLowEdge[iClass] <=  xLowOfSmallBin[r] && xUpOfSmallBin[r] <= xpLogicalUpEdge[iClass]){
+          smallClassNumber = iClass;
+        }
+      }
+      sumOfNr[iClass] += N[r];
+      C_NM_CBWC_nClass[iClass][iOrder] += N[r]*C_NM_nClass[r][iOrder];
+     }
+    //Calculation here
+      xpLogicalLowEdge[iClass] ; r <= xpLogicalUpEdge[iClass]; r++){
+        cout<<"Bug 3 :: "<<r<<endl;
+        SumOfNr += N[r];
+        C_NM_CBWC_nClass[iClass][iOrder] += N[r]*C_NM_nClass[r][iOrder];//this C_NM is actually for small class, put nSmallBin while executing
+      }
+      cout<<"Bug 4 ::"<<endl;
+      if( SumOfNr != 0){ 
+        cout<<"Bug 5 ::"<<endl;
+        C_NM_CBWC_nClass[iClass][iOrder] = C_NM_CBWC_nClass[iClass][iOrder] / SumOfNr; 
+      }
+      cout<<"Bug 6 ::"<<endl;
+    }
+    cout<<"Bug 7 ::"<<endl;
+  }
+  cout<<"Bug 8 ::"<<endl;
+}

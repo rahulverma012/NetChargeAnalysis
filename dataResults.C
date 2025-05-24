@@ -171,7 +171,7 @@ void dataResults(){
 
     //FOR STATISTICAL UNCERTAINITY FOR CBWC AND WITHOUT CBWC**********
     std::vector<std::vector<std::vector<double>>> dN_PowerSum_nSubSample_nClass_NoCBWC_vec(nSubSample,std::vector<std::vector<double>>(nClass+2, std::vector<double>(nOrder + 1,0)));
-    std::vector<std::vector<int64_t>>             iEvtEntries_nSubSample_nClass_NoCBWC_vec(nSubSample, std::vector<int64_t>(nClass,0));
+    std::vector<std::vector<int64_t>>             iEvtEntries_nSubSample_nClass_NoCBWC_vec(nSubSample, std::vector<int64_t>(nClass+2,0));
   
     std::vector<std::vector<std::vector<double>>> dN_PowerSum_nSubSample_nSmallClass_CBWC_vec(nSubSample,std::vector<std::vector<double>>(nSmallClass, std::vector<double>(nOrder + 1,0)));
     std::vector<std::vector<int64_t>>             iEvtEntries_nSubSample_nSmallClass_CBWC_vec(nSubSample, std::vector<int64_t>(nSmallClass,0));
@@ -327,7 +327,7 @@ void dataResults(){
       iEvtEntries_nSmallClass_vec[iSmallBinIDX] += iBinEntries;
 
       for (int iOrder = 0; iOrder <= nOrder; iOrder++) {
-        pow_dN_iOrder[iOrder] = TMath::Power(dN, iOrder);
+        pow_dN_iOrder[iOrder] = TMath::Power(dN, iOrder); // debug the case of power(0,0), it gives the value = 1.0 by default
       }
 
       //  Get Momentum Sum in each Small Bin of each SubSample
@@ -344,16 +344,16 @@ void dataResults(){
           dN_PowerSum_nSubSample_nClass_NoCBWC_vec[iSubSample][iClassIDX][iOrder] += pow_dN_iOrder[iOrder];
           //__Subsampling_NoMBWC - End  ______________________________________________________
           //__Subsampling_MBWC - Start _____________________// // Fill small class power sums and entries for subsampleS
-            dN_PowerSum_nSubSample_nSmallClass_CBWC_vec[iSubSample][iSmallBinIDX][iOrder] += pow_dN_iOrder[iOrder];
+          dN_PowerSum_nSubSample_nSmallClass_CBWC_vec[iSubSample][iSmallBinIDX][iOrder] += pow_dN_iOrder[iOrder];
           //__Subsampling_MBWC - End ______________________________________________________
         }
         iEvtEntries_nSubSample_nClass_NoCBWC_vec[iSubSample][iClassIDX]++;
         iEvtEntries_nSubSample_nSmallClass_CBWC_vec[iSubSample][iSmallBinIDX]++;
-        // //___________________Debug Histogram______________
-        // //Histogram filling consumes a lot of time 
-        // // int iAxis = 8;
-        // //   h1D[iAxis]                  ->Fill(Xvar[iAxis]);
-        // //   h1D_nClass[iAxis][classIDX] ->Fill(Xvar[iAxis]);
+        //___________________Debug Histogram______________
+        //Histogram filling consumes a lot of time 
+        // int iAxis = 8;
+        //   h1D[iAxis]                  ->Fill(Xvar[iAxis]);
+        //   h1D_nClass[iAxis][classIDX] ->Fill(Xvar[iAxis]);
       }
     }//BIN BY BIN LOOP ENDS ************************* 
     cout<<"CHECK1 :upto here passed::"<<endl;
